@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainUI {
 
@@ -70,7 +72,12 @@ public class MainUI {
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Send");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Function();
+			}
+		});
 		btnNewButton.setBounds(63, 83, 117, 41);
 		panel.add(btnNewButton);
 	}
