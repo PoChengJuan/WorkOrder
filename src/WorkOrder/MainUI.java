@@ -1,20 +1,23 @@
 package WorkOrder;
 
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
 
 public class MainUI {
 
 	private JFrame frame;
-	private JTextField TypeField;
 	private JTextField NumField;
 
 	/**
@@ -46,44 +49,72 @@ public class MainUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 256, 167);
+		frame.setBounds(100, 100, 288, 149);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		
+		
+		
+		
 		JPanel panel = new JPanel();
-		panel.setBounds(6, 6, 244, 132);
+		panel.setBounds(6, 6, 276, 116);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Machine Type");
-		lblNewLabel.setBounds(6, 22, 93, 16);
-		panel.add(lblNewLabel);
+		JLabel lblMachineType = new JLabel("Machine Type");
+		lblMachineType.setBounds(6, 17, 90, 16);
+		panel.add(lblMachineType);
 		
-		JLabel lblNewLabel_1 = new JLabel("Machine Num.");
-		lblNewLabel_1.setBounds(6, 50, 93, 16);
-		panel.add(lblNewLabel_1);
-		
-		TypeField = new JTextField();
-		TypeField.setBounds(111, 17, 130, 26);
-		panel.add(TypeField);
-		TypeField.setColumns(10);
+		JLabel lblMachineNum = new JLabel("Machine Num.");
+		lblMachineNum.setBounds(6, 41, 90, 16);
+		panel.add(lblMachineNum);
 		
 		NumField = new JTextField();
-		NumField.setBounds(111, 45, 130, 26);
+		NumField.setBounds(108, 36, 130, 26);
 		panel.add(NumField);
 		NumField.setColumns(10);
+		JComboBox<String> TypeBox = new JComboBox<>();
+		TypeBox.setBounds(108, 13, 130, 27);
+		String data = "";
+		try {
+			FileReader fr = new FileReader("/Users/mac/Documents/JavaCode/eclipse-workspace/WorkOrder/ref/Type.txt");
+			BufferedReader br = new BufferedReader(fr);
+			while((data = br.readLine())!=null)
+			{
+				TypeBox.addItem(data);
+			}
+			br.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		panel.add(TypeBox);
 		
-		JButton btnNewButton = new JButton("Send");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnSend = new JButton("Send");
+		btnSend.setBounds(62, 69, 117, 36);
+		panel.add(btnSend);
+		
+		JButton button = new JButton("+");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		button.setBounds(233, 12, 43, 29);
+		panel.add(button);
+		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String NewType = null;
 				String NewNum = null;
-				NewType = TypeField.getText();
+				NewType = TypeBox.getSelectedItem().toString();
 				NewNum = NumField.getText();
+				System.out.println(NewType);
 				new Function(NewType,NewNum);
 			}
 		});
-		btnNewButton.setBounds(63, 83, 117, 41);
-		panel.add(btnNewButton);
 	}
 }

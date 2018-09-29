@@ -57,6 +57,7 @@ public class Database {
 		}
 		//return outString;
 	}
+	
 	public void setdata(String newTypeStr, String newNumStr) throws SQLException {
 		Statement st = conn.createStatement();
 		//撈出資料

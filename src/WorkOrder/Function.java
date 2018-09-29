@@ -1,9 +1,6 @@
 package WorkOrder;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class Function {
 
@@ -16,11 +13,18 @@ public class Function {
 		try{
 			db.connect();
 			//System.out.print(db.getdata(NewTypeStr,NewNumStr));
-			if(db.getdata(NewTypeStr, NewNumStr)) {
-				db.setdata(NewTypeStr, NewNumStr);
-			}else {
+			if(NewNumStr.isEmpty())
+			{
 				//MessageBox.
-				JOptionPane.showMessageDialog(MessageBox, "This Machine Number is already exist.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(MessageBox, "Please input Machine Number", "Error", JOptionPane.ERROR_MESSAGE);
+			}else
+			{
+				if(db.getdata(NewTypeStr, NewNumStr)) {
+					db.setdata(NewTypeStr, NewNumStr);
+				}else {
+					//MessageBox.
+					JOptionPane.showMessageDialog(MessageBox, "This Machine Number is already exist.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
