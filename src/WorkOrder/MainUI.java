@@ -1,5 +1,6 @@
 package WorkOrder;
 
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,8 +14,8 @@ import java.awt.event.ActionEvent;
 public class MainUI {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField TypeField;
+	private JTextField NumField;
 
 	/**
 	 * Launch the application.
@@ -62,20 +63,24 @@ public class MainUI {
 		lblNewLabel_1.setBounds(6, 50, 93, 16);
 		panel.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(111, 17, 130, 26);
-		panel.add(textField);
-		textField.setColumns(10);
+		TypeField = new JTextField();
+		TypeField.setBounds(111, 17, 130, 26);
+		panel.add(TypeField);
+		TypeField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(111, 45, 130, 26);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		NumField = new JTextField();
+		NumField.setBounds(111, 45, 130, 26);
+		panel.add(NumField);
+		NumField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Send");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Function();
+				String NewType = null;
+				String NewNum = null;
+				NewType = TypeField.getText();
+				NewNum = NumField.getText();
+				new Function(NewType,NewNum);
 			}
 		});
 		btnNewButton.setBounds(63, 83, 117, 41);
