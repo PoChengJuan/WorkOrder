@@ -101,7 +101,7 @@ public class MainUI {
 		JButton button = new JButton("+");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				new AddType();
 			}
 		});
 		button.setBounds(233, 12, 43, 29);
