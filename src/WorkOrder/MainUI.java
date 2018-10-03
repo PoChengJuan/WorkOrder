@@ -137,9 +137,12 @@ public class MainUI {
 			out = path.toString();
 		}else{
 			path.append(getClass().getResource("").toString());
-			path.delete(0,2);
+			path.delete(0,8);
+			System.out.println(path.toString());
 			path.delete(path.length()-14, path.length());
+			System.out.println(path.toString());
 			path.append("ref/Type.txt");
+			System.out.println(path.toString());
 			out = path.toString();
 		}
 		
