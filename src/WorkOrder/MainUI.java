@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -52,7 +51,7 @@ public class MainUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 381, 186);
+		frame.setBounds(100, 100, 394, 243);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -61,38 +60,71 @@ public class MainUI {
 		
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 362, 141);
+		panel.setBounds(0, 0, 376, 198);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblMachineType = new JLabel("Machine Type");
-		lblMachineType.setBounds(6, 17, 90, 16);
+		lblMachineType.setBounds(14, 56, 90, 16);
 		panel.add(lblMachineType);
 		
 		JLabel lblMachineNum = new JLabel("Machine Num.");
-		lblMachineNum.setBounds(6, 54, 90, 16);
+		lblMachineNum.setBounds(14, 95, 90, 16);
 		panel.add(lblMachineNum);
 		
+		
+		
 		NumField = new JTextField();
-		NumField.setBounds(108, 50, 130, 26);
+		NumField.setBounds(116, 91, 130, 26);
 		panel.add(NumField);
 		NumField.setColumns(10);
+		
+		JComboBox<String> CreatorBox = new JComboBox<>();
+		CreatorBox.setBounds(116, 13, 130, 25);
+		panel.add(CreatorBox);
+		
 		JComboBox<String> TypeBox = new JComboBox<>();
-		TypeBox.setBounds(108, 13, 130, 27);
+		TypeBox.setBounds(116, 51, 130, 27);
 		String data = "";
 		try {
-			//FileReader fr = new FileReader("C:\\Users\\Qoo\\eclipse-workspace\\WorkOrder\\ref\\Type.txt");
+			int x = 0;
 			
-			//StringBuffer path = new StringBuffer();
-			//getFilePath();
-			
-			//System.out.print(getFilePath());
-			//FileReader fr = new FileReader("/Users/mac/Documents/JavaCode/eclipse-workspace/WorkOrder/ref/Type.txt");
 			FileReader fr = new FileReader(getFilePath());
 			BufferedReader br = new BufferedReader(fr);
+			
 			while((data = br.readLine())!=null)
 			{
-				TypeBox.addItem(data);
+				if(!(data.isEmpty())) {
+					if(data.equals("[Type]")) {
+						x = 1;
+						continue;
+					}else if(data.equals("[Creator]")) {
+						x = 2;
+						continue;
+					}
+					switch(x) {
+					case 1:
+						TypeBox.addItem(data);
+						break;
+					case 2:
+						CreatorBox.addItem(data);
+						break;
+					}
+				}
+				/*
+				if(data.equals("[Type]")) {
+					while((data = br.readLine())!=null)
+					{
+						TypeBox.addItem(data);
+					}
+				}else if(data.equals("[Creator]"))
+				{
+					while((data = br.readLine())!=null)
+					{
+						CreatorBox.addItem(data);
+					}
+				}*/
+				
 			}
 			br.close();
 		} catch (FileNotFoundException e1) {
@@ -105,20 +137,27 @@ public class MainUI {
 		panel.add(TypeBox);
 		
 		JButton btnSend = new JButton("Send");
-		btnSend.setBounds(121, 89, 117, 36);
+		btnSend.setBounds(129, 149, 117, 36);
 		panel.add(btnSend);
 		
 		JRadioButton DualButton = new JRadioButton("Dual AMC PS");
-		DualButton.setBounds(248, 12, 127, 27);
+		DualButton.setBounds(256, 51, 127, 27);
 		panel.add(DualButton);
+		
+		JLabel lblCreat = new JLabel("Creator");
+		lblCreat.setBounds(14, 16, 57, 19);
+		panel.add(lblCreat);
+		
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String NewType = null;
 				String NewNum = null;
+				String Creator = null;
+				Creator = CreatorBox.getSelectedItem().toString();
 				NewType = TypeBox.getSelectedItem().toString();
 				NewNum = NumField.getText();
 				System.out.println(NewType);
-				new Function(NewType,NewNum,DualButton);
+				new Function(Creator,NewType,NewNum,DualButton);
 				//MessageBox.
 				
 			}

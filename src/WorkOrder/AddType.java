@@ -1,14 +1,11 @@
 package WorkOrder;
 
 import java.awt.EventQueue;
-import java.awt.Window;
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-import com.sun.glass.events.WindowEvent;
 
 import javax.swing.JScrollPane;
 

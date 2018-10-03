@@ -11,7 +11,7 @@ public class Function {
 	Database db = new Database();
 	String NewType = null;
 	String NewNum = null;
-	public Function(String NewTypeStr, String NewNumStr, JRadioButton DualButton)
+	public Function(String CreatorStr, String NewTypeStr, String NewNumStr, JRadioButton DualButton)
 	{
 		try{
 			//JFrame MessageBox = null;
