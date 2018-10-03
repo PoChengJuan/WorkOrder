@@ -11,7 +11,10 @@ public class Function {
 	public Function(String NewTypeStr, String NewNumStr)
 	{
 		try{
-			db.connect();
+			JFrame MessageBox = null;
+			JOptionPane.showMessageDialog(MessageBox, "Please check the internet", "Error", JOptionPane.ERROR_MESSAGE);
+
+			//db.connect();
 			//System.out.print(db.getdata(NewTypeStr,NewNumStr));
 			if(NewNumStr.isEmpty())
 			{

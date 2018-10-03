@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 public class MainUI {
 
@@ -29,6 +31,7 @@ public class MainUI {
 				try {
 					MainUI window = new MainUI();
 					window.frame.setLocationRelativeTo(null);
+					window.frame.setTitle("WorkOrder");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +52,7 @@ public class MainUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 288, 149);
+		frame.setBounds(100, 100, 381, 186);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -58,7 +61,7 @@ public class MainUI {
 		
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(6, 6, 276, 116);
+		panel.setBounds(0, 0, 362, 141);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -67,18 +70,19 @@ public class MainUI {
 		panel.add(lblMachineType);
 		
 		JLabel lblMachineNum = new JLabel("Machine Num.");
-		lblMachineNum.setBounds(6, 41, 90, 16);
+		lblMachineNum.setBounds(6, 54, 90, 16);
 		panel.add(lblMachineNum);
 		
 		NumField = new JTextField();
-		NumField.setBounds(108, 36, 130, 26);
+		NumField.setBounds(108, 50, 130, 26);
 		panel.add(NumField);
 		NumField.setColumns(10);
 		JComboBox<String> TypeBox = new JComboBox<>();
 		TypeBox.setBounds(108, 13, 130, 27);
 		String data = "";
 		try {
-			FileReader fr = new FileReader("/Users/mac/Documents/JavaCode/eclipse-workspace/WorkOrder/ref/Type.txt");
+			//FileReader fr = new FileReader("/Users/mac/Documents/JavaCode/eclipse-workspace/WorkOrder/ref/Type.txt");
+			FileReader fr = new FileReader("C:\\Users\\Qoo\\eclipse-workspace\\WorkOrder\\ref\\Type.txt");
 			BufferedReader br = new BufferedReader(fr);
 			while((data = br.readLine())!=null)
 			{
@@ -95,17 +99,12 @@ public class MainUI {
 		panel.add(TypeBox);
 		
 		JButton btnSend = new JButton("Send");
-		btnSend.setBounds(62, 69, 117, 36);
+		btnSend.setBounds(121, 89, 117, 36);
 		panel.add(btnSend);
 		
-		JButton button = new JButton("+");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new AddType();
-			}
-		});
-		button.setBounds(233, 12, 43, 29);
-		panel.add(button);
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Dual AMC PS");
+		rdbtnNewRadioButton.setBounds(248, 12, 127, 27);
+		panel.add(rdbtnNewRadioButton);
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String NewType = null;
@@ -114,6 +113,8 @@ public class MainUI {
 				NewNum = NumField.getText();
 				System.out.println(NewType);
 				new Function(NewType,NewNum);
+				//MessageBox.
+				
 			}
 		});
 	}
