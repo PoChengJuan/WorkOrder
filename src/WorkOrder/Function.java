@@ -1,5 +1,8 @@
 package WorkOrder;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.*;
 
 public class Function {
@@ -8,13 +11,13 @@ public class Function {
 	Database db = new Database();
 	String NewType = null;
 	String NewNum = null;
-	public Function(String NewTypeStr, String NewNumStr)
+	public Function(String NewTypeStr, String NewNumStr, JRadioButton DualButton)
 	{
 		try{
-			JFrame MessageBox = null;
-			JOptionPane.showMessageDialog(MessageBox, "Please check the internet", "Error", JOptionPane.ERROR_MESSAGE);
+			//JFrame MessageBox = null;
+			//JOptionPane.showMessageDialog(MessageBox, "Please check the internet", "Error", JOptionPane.ERROR_MESSAGE);
 
-			//db.connect();
+			db.connect();
 			//System.out.print(db.getdata(NewTypeStr,NewNumStr));
 			if(NewNumStr.isEmpty())
 			{
@@ -23,7 +26,7 @@ public class Function {
 			}else
 			{
 				if(db.getdata(NewTypeStr, NewNumStr)) {
-					db.setdata(NewTypeStr, NewNumStr);
+					db.setdata(NewTypeStr, NewNumStr,DualButton,getTime());
 				}else {
 					//MessageBox.
 					JOptionPane.showMessageDialog(MessageBox, "This Machine Number is already exist.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -32,6 +35,15 @@ public class Function {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public String getTime(){
+		String out = "";
+		SimpleDateFormat DateFormet = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		out = DateFormet.format(date);
+		System.out.println(out);
+		return out;
 	}
 
 }

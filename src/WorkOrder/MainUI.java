@@ -81,8 +81,14 @@ public class MainUI {
 		TypeBox.setBounds(108, 13, 130, 27);
 		String data = "";
 		try {
+			//FileReader fr = new FileReader("C:\\Users\\Qoo\\eclipse-workspace\\WorkOrder\\ref\\Type.txt");
+			
+			//StringBuffer path = new StringBuffer();
+			//getFilePath();
+			
+			//System.out.print(getFilePath());
 			//FileReader fr = new FileReader("/Users/mac/Documents/JavaCode/eclipse-workspace/WorkOrder/ref/Type.txt");
-			FileReader fr = new FileReader("C:\\Users\\Qoo\\eclipse-workspace\\WorkOrder\\ref\\Type.txt");
+			FileReader fr = new FileReader(getFilePath());
 			BufferedReader br = new BufferedReader(fr);
 			while((data = br.readLine())!=null)
 			{
@@ -102,9 +108,9 @@ public class MainUI {
 		btnSend.setBounds(121, 89, 117, 36);
 		panel.add(btnSend);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Dual AMC PS");
-		rdbtnNewRadioButton.setBounds(248, 12, 127, 27);
-		panel.add(rdbtnNewRadioButton);
+		JRadioButton DualButton = new JRadioButton("Dual AMC PS");
+		DualButton.setBounds(248, 12, 127, 27);
+		panel.add(DualButton);
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String NewType = null;
@@ -112,10 +118,23 @@ public class MainUI {
 				NewType = TypeBox.getSelectedItem().toString();
 				NewNum = NumField.getText();
 				System.out.println(NewType);
-				new Function(NewType,NewNum);
+				new Function(NewType,NewNum,DualButton);
 				//MessageBox.
 				
 			}
 		});
+	}
+	
+	public String getFilePath(){
+		StringBuffer path = new StringBuffer();
+		String out = null;
+		//System.out.println(getClass().getResource("").toString());
+		
+		path.append(getClass().getResource("").toString());
+		path.delete(0,5);
+		path.delete(path.length()-14, path.length());
+		path.append("ref/Type.txt");
+		out = path.toString();
+		return out;
 	}
 }

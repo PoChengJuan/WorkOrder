@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JRadioButton;
+
 public class Database {
 
     private Connection conn;
@@ -34,12 +36,12 @@ public class Database {
 		try {
 			Statement st = conn.createStatement();
 			//撈出資料
-			st.execute("SELECT * FROM `WorkOrderDB` WHERE `Type` LIKE 'iPalur'");
+			st.execute("SELECT * FROM `WorkOrder` WHERE 1");
 			ResultSet rs = st.getResultSet();
 			
 			while(rs.next())
 			{
-				if(rs.getString("Num").equals(newNumStr))
+				if(rs.getString("Machine_SN").equals(newNumStr))
 				{
 					//System.out.println("same num");
 					return false;
@@ -58,11 +60,11 @@ public class Database {
 		//return outString;
 	}
 	
-	public void setdata(String newTypeStr, String newNumStr) throws SQLException {
+	public void setdata(String newTypeStr, String newNumStr, JRadioButton dualButton, String date) throws SQLException {
 		Statement st = conn.createStatement();
+		System.out.println(dualButton.isSelected());
 		//撈出資料
-		String out = "INSERT INTO `WorkOrderDB` (`AUTO_INCREMENT`, `Type`, `Num`, `Note`) VALUES (NULL, '"+newTypeStr+"', '"+newNumStr+"', '')";
+		String out = "INSERT INTO `WorkOrder` (`AUTO_INCREMENT`, `Type`, `WorkOrder_SN`, `Machine_SN`) VALUES (NULL, '"+newTypeStr+"', '"+newTypeStr+newNumStr+"', '"+newNumStr+"')";
 		st.execute(out);
-		//ResultSet rs = st.getResultSet();
 	}
 }
