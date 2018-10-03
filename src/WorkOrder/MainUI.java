@@ -57,7 +57,7 @@ public class MainUI {
 		frame.getContentPane().setLayout(null);
 		
 		
-		
+		System.out.println(System.getProperty("os.name").toString());
 		
 		
 		JPanel panel = new JPanel();
@@ -129,12 +129,20 @@ public class MainUI {
 		StringBuffer path = new StringBuffer();
 		String out = null;
 		//System.out.println(getClass().getResource("").toString());
+		if(System.getProperty("os.name").equals("Mac OS X")){
+			path.append(getClass().getResource("").toString());
+			path.delete(0,5);
+			path.delete(path.length()-14, path.length());
+			path.append("ref/Type.txt");
+			out = path.toString();
+		}else{
+			path.append(getClass().getResource("").toString());
+			path.delete(0,2);
+			path.delete(path.length()-14, path.length());
+			path.append("ref/Type.txt");
+			out = path.toString();
+		}
 		
-		path.append(getClass().getResource("").toString());
-		path.delete(0,5);
-		path.delete(path.length()-14, path.length());
-		path.append("ref/Type.txt");
-		out = path.toString();
 		return out;
 	}
 }
