@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
 
 public class MainUI {
 
@@ -30,7 +31,7 @@ public class MainUI {
 				try {
 					MainUI window = new MainUI();
 					window.frame.setLocationRelativeTo(null);
-					window.frame.setTitle("WorkOrder");
+					window.frame.setTitle("iPQRS Machine Register");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +52,7 @@ public class MainUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 394, 243);
+		frame.setBounds(100, 100, 394, 253);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -60,7 +61,7 @@ public class MainUI {
 		
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 376, 198);
+		panel.setBounds(0, 0, 376, 208);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -137,7 +138,7 @@ public class MainUI {
 		panel.add(TypeBox);
 		
 		JButton btnSend = new JButton("Send");
-		btnSend.setBounds(129, 149, 117, 36);
+		btnSend.setBounds(129, 163, 117, 36);
 		panel.add(btnSend);
 		
 		JRadioButton DualButton = new JRadioButton("Dual AMC PS");
@@ -147,6 +148,10 @@ public class MainUI {
 		JLabel lblCreat = new JLabel("Creator");
 		lblCreat.setBounds(14, 16, 57, 19);
 		panel.add(lblCreat);
+		
+		JButton btnNewButton = new JButton("Check The Last Number");
+		btnNewButton.setBounds(92, 124, 191, 27);
+		panel.add(btnNewButton);
 		
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
