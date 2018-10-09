@@ -11,7 +11,7 @@ public class Function {
 	Database db = new Database();
 	String NewType = null;
 	String NewNum = null;
-	public Function(String CreatorStr, String NewTypeStr, String NewNumStr, JRadioButton DualButton)
+	public Function(MachineData data)
 	{
 		try{
 			//JFrame MessageBox = null;
@@ -19,17 +19,29 @@ public class Function {
 
 			db.connect();
 			//System.out.print(db.getdata(NewTypeStr,NewNumStr));
-			if(NewNumStr.isEmpty())
+			if(data.Num.isEmpty())
 			{
 				//MessageBox.
 				JOptionPane.showMessageDialog(MessageBox, "Please input Machine Number", "Error", JOptionPane.ERROR_MESSAGE);
 			}else
 			{
-				if(db.getdata(NewTypeStr, NewNumStr)) {
-					db.setdata(NewTypeStr, NewNumStr,DualButton,getTime());
-				}else {
-					//MessageBox.
-					JOptionPane.showMessageDialog(MessageBox, "This Machine Number is already exist.", "Error", JOptionPane.ERROR_MESSAGE);
+				if(data.Num.length() < 4) {
+					JOptionPane.showMessageDialog(MessageBox, "This Machine Number is too Short.", "Error", JOptionPane.ERROR_MESSAGE);
+				}else
+				{
+					if(db.getdata(data)) {
+						db.setdata(data);
+						if(db.checkdata(data))
+						{
+							JOptionPane.showMessageDialog(MessageBox, "This Machine Number register complete.", "Complete!!", JOptionPane.INFORMATION_MESSAGE);
+						}else
+						{
+							JOptionPane.showMessageDialog(MessageBox, "This Machine Number register Error.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}else {
+						//MessageBox.
+						JOptionPane.showMessageDialog(MessageBox, "This Machine Number is already exist.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		}catch(Exception e){

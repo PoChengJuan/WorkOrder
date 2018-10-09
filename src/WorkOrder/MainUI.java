@@ -12,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -150,14 +152,29 @@ public class MainUI {
 		
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Date date = new Date( );
+			    SimpleDateFormat date_ft = new SimpleDateFormat ("yyyy-MM-dd");
+				MachineData Data = new MachineData();
 				String NewType = null;
 				String NewNum = null;
 				String Creator = null;
+				Data.Type = TypeBox.getSelectedItem().toString();
+				Data.Num = NumField.getText();
+				Data.Creator = CreatorBox.getSelectedItem().toString();
+				if(Boolean.toString(DualButton.isSelected()).equals("true")) {
+					Data.Dual_AMU_PS = "1";
+				}else
+				{
+					Data.Dual_AMU_PS = "0";
+				}
+				Data.MFG_Start_Date = date_ft.format(date);
+				Data.WorkOrder_SN = TypeBox.getSelectedItem().toString() + NumField.getText();
 				Creator = CreatorBox.getSelectedItem().toString();
 				NewType = TypeBox.getSelectedItem().toString();
 				NewNum = NumField.getText();
 				System.out.println(NewType);
-				new Function(Creator,NewType,NewNum,DualButton);
+				//new Function(Creator,NewType,NewNum,DualButton);
+				new Function(Data);
 				//MessageBox.
 				
 			}
@@ -188,3 +205,4 @@ public class MainUI {
 		return out;
 	}
 }
+

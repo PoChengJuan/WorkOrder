@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 import javax.swing.JRadioButton;
 
@@ -32,18 +33,21 @@ public class Database {
 
 		
 	}
-	public boolean getdata(String newTypeStr, String newNumStr) throws SQLException {
+	public boolean getdata(MachineData data) throws SQLException {
+		DecimalFormat decimalformat = new DecimalFormat("#############.#############");
 		try {
 			Statement st = conn.createStatement();
 			//撈出資料
 			st.execute("SELECT * FROM `WorkOrder` WHERE 1");
 			ResultSet rs = st.getResultSet();
-			
+			System.out.println(data.Num);
 			while(rs.next())
 			{
-				if(rs.getString("Machine_SN").equals(newNumStr))
+				double Num = rs.getDouble("Machine_SN");
+				if(decimalformat.format(Num).equals(data.Num))
 				{
 					//System.out.println("same num");
+					System.out.println(rs.getString("Machine_SN"));
 					return false;
 				}else
 				{
@@ -60,11 +64,37 @@ public class Database {
 		//return outString;
 	}
 	
-	public void setdata(String newTypeStr, String newNumStr, JRadioButton dualButton, String date) throws SQLException {
+	public void setdata(MachineData data) throws SQLException {
 		Statement st = conn.createStatement();
-		System.out.println(dualButton.isSelected());
+		//System.out.println(dualButton.isSelected());
 		//撈出資料
-		String out = "INSERT INTO `WorkOrder` (`AUTO_INCREMENT`, `Type`, `WorkOrder_SN`, `Machine_SN`) VALUES (NULL, '"+newTypeStr+"', '"+newTypeStr+newNumStr+"', '"+newNumStr+"')";
-		st.execute(out);
+		String out1 = "INSERT INTO `WorkOrder` (`AUTO_INCREMENT`, `Type`, `WorkOrder_SN`, `Machine_SN`) VALUES (NULL, '"+data.Type+"', '"+data.Type+data.Num+"', '"+data.Num+"')";
+		String out2 = "INSERT INTO `Machine_Type_Number` (`ID`, `M_Type`, `M_Number`, `Location`, `Ship_Date`, `Customer_SN`, `MFG_Start_Date`, `Dual_AMS_PS`, `NumberCreator`) "
+												+ "VALUES (NULL, '"+data.Type+"', '"+data.Num+"', NULL, NULL, NULL, '"+data.MFG_Start_Date+"', '"+data.Dual_AMU_PS+"', '"+data.Creator+"')";
+		st.execute(out1);
+		st.execute(out2);
 	}
+	public boolean checkdata(MachineData data) {
+		// TODO Auto-generated method stub
+		try {
+			Statement st = conn.createStatement();
+			//撈出資料
+			st.execute("SELECT * FROM `Machine_Type_Number` ORDER BY `Machine_Type_Number`.`ID` DESC");
+			ResultSet rs = st.getResultSet();
+			while(rs.next()) {
+				if(rs.getString("M_Number").equals(data.Num)) {
+					System.out.println("OK");
+					return true;
+				}else
+				{
+					System.out.println("NG");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
