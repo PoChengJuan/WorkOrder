@@ -155,9 +155,7 @@ public class MainUI {
 				Date date = new Date( );
 			    SimpleDateFormat date_ft = new SimpleDateFormat ("yyyy-MM-dd");
 				MachineData Data = new MachineData();
-				String NewType = null;
-				String NewNum = null;
-				String Creator = null;
+
 				Data.Type = TypeBox.getSelectedItem().toString();
 				Data.Num = NumField.getText();
 				Data.Creator = CreatorBox.getSelectedItem().toString();
@@ -169,10 +167,7 @@ public class MainUI {
 				}
 				Data.MFG_Start_Date = date_ft.format(date);
 				Data.WorkOrder_SN = TypeBox.getSelectedItem().toString() + NumField.getText();
-				Creator = CreatorBox.getSelectedItem().toString();
-				NewType = TypeBox.getSelectedItem().toString();
-				NewNum = NumField.getText();
-				System.out.println(NewType);
+
 				//new Function(Creator,NewType,NewNum,DualButton);
 				new Function(Data);
 				//MessageBox.
