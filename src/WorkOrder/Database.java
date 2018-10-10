@@ -19,7 +19,7 @@ public class Database {
         try {
 			//連接MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("連接成功MySQLToJava");
+            //System.out.println("連接成功MySQLToJava");
         } catch (ClassNotFoundException e) {
             throw new Exception("No database");
         }
@@ -37,7 +37,8 @@ public class Database {
 		try {
 			Statement st = conn.createStatement();
 			//撈出資料
-			st.execute("SELECT * FROM `WorkOrder` WHERE 1");
+			//st.execute("SELECT * FROM `WorkOrder` WHERE 1");
+			st.execute("SELECT * FROM `WorkOrder` WHERE `Type` LIKE '"+data.Type+"'");
 			ResultSet rs = st.getResultSet();
 			System.out.println(data.Num);
 			while(rs.next())
@@ -79,11 +80,16 @@ public class Database {
 			Statement st = conn.createStatement();
 			//撈出資料
 			st.execute("SELECT * FROM `Machine_Type_Number` ORDER BY `Machine_Type_Number`.`ID` DESC");
+			//st.execute("SELECT * FROM `Machine_Type_Number` WHERE `M_Number` LIKE '"+data.Num+"' ORDER BY `Machine_Type_Number`.`ID` DESC");
+			//st.execute("SELECT * FROM `Machine_Type_Number` WHERE `M_Type` LIKE '"+data.Type+"' ORDER BY `ID` DESC");
+
 			ResultSet rs = st.getResultSet();
 			while(rs.next()) {
 				if(rs.getString("M_Number").equals(data.Num)) {
-					System.out.println("OK");
-					return true;
+					if(rs.getString("M_Type").equals(data.Type)) {
+						System.out.println("OK");
+						return true;
+					}
 				}else
 				{
 					System.out.println("NG");
@@ -94,6 +100,16 @@ public class Database {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	public void CheckLastData(MachineData data) throws SQLException {
+		// TODO Auto-generated method stub
+		Statement st = conn.createStatement();
+		//st.execute("SELECT * FROM `Machine_Type_Number` ORDER BY `Machine_Type_Number`.`ID` DESC");
+		st.execute("SELECT * FROM `Machine_Type_Number` WHERE `M_Type` LIKE '"+data.Type+"' ORDER BY `Machine_Type_Number`.`ID` DESC");
+		ResultSet rs = st.getResultSet();
+		rs.next();
+		data.LastType = rs.getString("M_Type").toString();
+		data.LastNum = rs.getString("M_Number").toString();
 	}
 
 }

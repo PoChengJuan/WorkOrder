@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
-public class MainUI {
+public class MainUI implements method{
 
 	private JFrame frame;
 	private JTextField NumField;
@@ -152,6 +152,17 @@ public class MainUI {
 		panel.add(lblCreat);
 		
 		JButton btnNewButton = new JButton("Check The Last Number");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//new CheckNum()
+				MachineData Data = new MachineData();
+				Data.Method = CHECK_FUNCTION;
+				Data.Type = TypeBox.getSelectedItem().toString();
+				Data.Num = NumField.getText();
+				Data.Creator = CreatorBox.getSelectedItem().toString();
+				new Function(Data);
+			}
+		});
 		btnNewButton.setBounds(92, 124, 191, 27);
 		panel.add(btnNewButton);
 		
@@ -160,7 +171,8 @@ public class MainUI {
 				Date date = new Date( );
 			    SimpleDateFormat date_ft = new SimpleDateFormat ("yyyy-MM-dd");
 				MachineData Data = new MachineData();
-
+				
+				Data.Method = ADD_FUNCTION;
 				Data.Type = TypeBox.getSelectedItem().toString();
 				Data.Num = NumField.getText();
 				Data.Creator = CreatorBox.getSelectedItem().toString();
