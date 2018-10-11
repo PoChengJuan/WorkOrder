@@ -22,13 +22,12 @@ import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import java.awt.Color;
 
 public class MainUI implements method{
 
 	private JFrame frame;
 	private JTextField NumField;
-	private static DefaultComboBoxModel<String> BoxModel = new DefaultComboBoxModel(new String[] {}) ; 
+	private static DefaultComboBoxModel<String> BoxModel = new DefaultComboBoxModel<String>(new String[] {}) ; 
 	private final String Version = "0.0.1";
 	/**
 	 * Launch the application.
@@ -243,19 +242,12 @@ public class MainUI implements method{
 
 	public static void UpdateTypeBox(String str) {
 		// TODO Auto-generated method stub
-		String BoxStr[] = null;
 		String[] tokens = str.split("\n");
-		//TypeBox.removeAll();
 		BoxModel.removeAllElements();
 		for(String token:tokens) {
 			System.out.println(token);
-			//TypeBox.addItem(token);
 			BoxModel.addElement(token);
-		}
-		//TypeBox.updateUI();
-		//panel.updateUI();
-		//BoxStr[0] = str.;
-		
+		}		
 	}
 }
 
