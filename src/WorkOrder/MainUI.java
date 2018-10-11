@@ -147,7 +147,7 @@ public class MainUI implements method{
 		panel.add(btnSend);
 		
 		JRadioButton DualButton = new JRadioButton("Dual AMC PS");
-		DualButton.setBounds(256, 51, 127, 27);
+		DualButton.setBounds(256, 90, 127, 27);
 		DualButton.setToolTipText("Check Dual AMC PS or not.");
 		panel.add(DualButton);
 		
@@ -183,8 +183,8 @@ public class MainUI implements method{
 				new AddType(str1);
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon("/Users/mac/Documents/JavaCode/eclipse-workspace/WorkOrder/ref/Plus.png"));
-		btnNewButton.setBounds(254, 89, 29, 22);
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\Qoo\\eclipse-workspace\\WorkOrder\\ref\\Plus.png"));
+		btnNewButton.setBounds(260, 52, 31, 26);
 		btnNewButton.setOpaque(false);
 		btnNewButton.setBorder(null);
 		panel.add(btnNewButton);

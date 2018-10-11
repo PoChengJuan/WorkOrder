@@ -50,7 +50,7 @@ public class AddType extends MainUI{
 		
 		frame = new JFrame();
 		
-		frame.setBounds(100, 100, 114, 180);
+		frame.setBounds(100, 100, 175, 220);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -61,7 +61,7 @@ public class AddType extends MainUI{
 		frame.getContentPane().add(TypeArea);
 		
 		JScrollPane scrollPane = new JScrollPane(TypeArea);
-		scrollPane.setBounds(6, 6, 102, 146);
+		scrollPane.setBounds(6, 6, 146, 163);
 		frame.getContentPane().add(scrollPane);
 		frame.setVisible(true);
 		
