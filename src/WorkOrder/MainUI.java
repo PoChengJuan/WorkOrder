@@ -18,12 +18,18 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
+import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class MainUI implements method{
 
 	private JFrame frame;
 	private JTextField NumField;
-
+	private static DefaultComboBoxModel<String> BoxModel = new DefaultComboBoxModel(new String[] {}) ; 
+	private final String Version = "0.0.1";
 	/**
 	 * Launch the application.
 	 */
@@ -61,6 +67,12 @@ public class MainUI implements method{
 		
 		System.out.println(System.getProperty("os.name").toString());
 		
+		JLabel VersionLabel = new JLabel("New label");
+		VersionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 9));
+		VersionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		VersionLabel.setBounds(217, 198, 157, 16);
+		VersionLabel.setText("Version : " + Version);
+		frame.getContentPane().add(VersionLabel);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 376, 208);
@@ -79,6 +91,7 @@ public class MainUI implements method{
 		
 		NumField = new JTextField();
 		NumField.setBounds(116, 91, 130, 26);
+		NumField.setToolTipText("Input the machine Number.");
 		panel.add(NumField);
 		NumField.setColumns(10);
 		
@@ -88,6 +101,7 @@ public class MainUI implements method{
 		
 		JComboBox<String> TypeBox = new JComboBox<>();
 		TypeBox.setBounds(116, 51, 130, 27);
+		TypeBox.setToolTipText("Chioce the machine type.");
 		String data = "";
 		try {
 			int x = 0;
@@ -107,28 +121,17 @@ public class MainUI implements method{
 					}
 					switch(x) {
 					case 1:
-						TypeBox.addItem(data);
+						//TypeBox.addItem(data);
+						BoxModel.addElement(data);
 						break;
 					case 2:
 						CreatorBox.addItem(data);
 						break;
 					}
 				}
-				/*
-				if(data.equals("[Type]")) {
-					while((data = br.readLine())!=null)
-					{
-						TypeBox.addItem(data);
-					}
-				}else if(data.equals("[Creator]"))
-				{
-					while((data = br.readLine())!=null)
-					{
-						CreatorBox.addItem(data);
-					}
-				}*/
-				
 			}
+			TypeBox.setModel(BoxModel);
+			fr.close();
 			br.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -141,18 +144,20 @@ public class MainUI implements method{
 		
 		JButton btnSend = new JButton("Send");
 		btnSend.setBounds(129, 163, 117, 36);
+		btnSend.setToolTipText("Register the machine Number.");
 		panel.add(btnSend);
 		
 		JRadioButton DualButton = new JRadioButton("Dual AMC PS");
 		DualButton.setBounds(256, 51, 127, 27);
+		DualButton.setToolTipText("Check Dual AMC PS or not.");
 		panel.add(DualButton);
 		
 		JLabel lblCreat = new JLabel("Creator");
 		lblCreat.setBounds(14, 16, 57, 19);
 		panel.add(lblCreat);
 		
-		JButton btnNewButton = new JButton("Check The Last Number");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnCheck = new JButton("Check The Last Number");
+		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//new CheckNum()
 				MachineData Data = new MachineData();
@@ -163,7 +168,26 @@ public class MainUI implements method{
 				new Function(Data);
 			}
 		});
-		btnNewButton.setBounds(92, 124, 191, 27);
+		btnCheck.setBounds(92, 124, 191, 27);
+		btnCheck.setToolTipText("Check the last machine type and number.");
+		panel.add(btnCheck);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String str1 = "";
+				for(int i = 0;i < TypeBox.getItemCount();i++)
+				{
+					str1 = str1 + TypeBox.getItemAt(i).toString();
+					str1 = str1 + "\n";
+				}
+				new AddType(str1);
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon("/Users/mac/Documents/JavaCode/eclipse-workspace/WorkOrder/ref/Plus.png"));
+		btnNewButton.setBounds(254, 89, 29, 22);
+		btnNewButton.setOpaque(false);
+		btnNewButton.setBorder(null);
 		panel.add(btnNewButton);
 		
 		btnSend.addActionListener(new ActionListener() {
@@ -215,6 +239,23 @@ public class MainUI implements method{
 		}
 		
 		return out;
+	}
+
+	public static void UpdateTypeBox(String str) {
+		// TODO Auto-generated method stub
+		String BoxStr[] = null;
+		String[] tokens = str.split("\n");
+		//TypeBox.removeAll();
+		BoxModel.removeAllElements();
+		for(String token:tokens) {
+			System.out.println(token);
+			//TypeBox.addItem(token);
+			BoxModel.addElement(token);
+		}
+		//TypeBox.updateUI();
+		//panel.updateUI();
+		//BoxStr[0] = str.;
+		
 	}
 }
 
