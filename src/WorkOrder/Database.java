@@ -7,30 +7,40 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 public class Database {
 
     private Connection conn;
-
-	public void connect() throws Exception{
+    JFrame MessageBox;
+	public void connect(){
 		
 		if(conn != null) return;
 
-        try {
+        
 			//連接MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             //System.out.println("連接成功MySQLToJava");
-        } catch (ClassNotFoundException e) {
-            throw new Exception("No database");
-        }
+        
       //建立讀取資料庫 (test 為資料庫名稱; user 為MySQL使用者名稱; passwrod 為MySQL使用者密碼)
 		String DB_URL = "jdbc:mysql://114.35.249.80/WorkOrder?autoReconnect=true&useSSL=false";
 		String USER = "pcj";
 		String PASSWORD = "brrtpdhc76";
 		System.out.println("連接成功MySQL");
-        conn = DriverManager.getConnection(DB_URL,USER,PASSWORD);  
-
-		
+        try {
+			conn = DriverManager.getConnection(DB_URL,USER,PASSWORD);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(MessageBox, "Please check the internet", "Error", JOptionPane.ERROR_MESSAGE);
+		}  		
 	}
 	public boolean getdata(MachineData data) throws SQLException {
 		DecimalFormat decimalformat = new DecimalFormat("#############.#############");

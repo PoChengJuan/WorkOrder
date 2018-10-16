@@ -25,7 +25,7 @@ import javax.swing.ImageIcon;
 
 public class MainUI implements method{
 
-	private JFrame frame;
+	public static JFrame frame;
 	private JTextField NumField;
 	private static DefaultComboBoxModel<String> BoxModel = new DefaultComboBoxModel<String>(new String[] {}) ; 
 	private final String Version = "0.0.1";
@@ -36,10 +36,10 @@ public class MainUI implements method{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainUI window = new MainUI();
-					window.frame.setLocationRelativeTo(null);
-					window.frame.setTitle("iPQRS Machine Register");
-					window.frame.setVisible(true);
+					new MainUI();
+					frame.setLocationRelativeTo(null);
+					frame.setTitle("iPQRS Machine Register");
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,6 +58,7 @@ public class MainUI implements method{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 394, 253);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -171,8 +172,8 @@ public class MainUI implements method{
 		btnCheck.setToolTipText("Check the last machine type and number.");
 		panel.add(btnCheck);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAdd = new JButton("");
+		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String str1 = "";
 				for(int i = 0;i < TypeBox.getItemCount();i++)
@@ -180,14 +181,19 @@ public class MainUI implements method{
 					str1 = str1 + TypeBox.getItemAt(i).toString();
 					str1 = str1 + "\n";
 				}
+				frame.setEnabled(false);
 				new AddType(str1);
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\Qoo\\eclipse-workspace\\WorkOrder\\ref\\Plus.png"));
-		btnNewButton.setBounds(260, 52, 31, 26);
-		btnNewButton.setOpaque(false);
-		btnNewButton.setBorder(null);
-		panel.add(btnNewButton);
+		if(System.getProperty("os.name").equals("Mac OS X")){
+			btnAdd.setIcon(new ImageIcon("/Users/mac/Documents/JavaCode/eclipse-workspace/WorkOrder/ref/Plus.png"));
+		}else {
+			btnAdd.setIcon(new ImageIcon("C:\\Users\\Qoo\\eclipse-workspace\\WorkOrder\\ref\\Plus.png"));
+		}
+		btnAdd.setBounds(260, 52, 31, 26);
+		btnAdd.setOpaque(false);
+		btnAdd.setBorder(null);
+		panel.add(btnAdd);
 		
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -209,6 +215,7 @@ public class MainUI implements method{
 				Data.WorkOrder_SN = TypeBox.getSelectedItem().toString() + NumField.getText();
 
 				//new Function(Creator,NewType,NewNum,DualButton);
+				
 				new Function(Data);
 				//MessageBox.
 				
@@ -216,29 +223,7 @@ public class MainUI implements method{
 		});
 	}
 	
-	public String getFilePath(){
-		StringBuffer path = new StringBuffer();
-		String out = null;
-		//System.out.println(getClass().getResource("").toString());
-		if(System.getProperty("os.name").equals("Mac OS X")){
-			path.append(getClass().getResource("").toString());
-			path.delete(0,5);
-			path.delete(path.length()-14, path.length());
-			path.append("ref/Type.txt");
-			out = path.toString();
-		}else{
-			path.append(getClass().getResource("").toString());
-			path.delete(0,8);
-			System.out.println(path.toString());
-			path.delete(path.length()-14, path.length());
-			System.out.println(path.toString());
-			path.append("ref/Type.txt");
-			System.out.println(path.toString());
-			out = path.toString();
-		}
-		
-		return out;
-	}
+	
 
 	public static void UpdateTypeBox(String str) {
 		// TODO Auto-generated method stub
@@ -247,7 +232,8 @@ public class MainUI implements method{
 		for(String token:tokens) {
 			System.out.println(token);
 			BoxModel.addElement(token);
-		}		
+		}	
+		frame.setEnabled(true);
 	}
 }
 

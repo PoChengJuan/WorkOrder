@@ -14,9 +14,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class AddType extends MainUI{
+public class AddType implements method {
 
-	private JFrame frame;
+	private JFrame frameAdd;
 
 	/**
 	 * Launch the application.
@@ -26,7 +26,7 @@ public class AddType extends MainUI{
 			public void run() {
 				try {
 					AddType window = new AddType("");
-					window.frame.setVisible(true);
+					window.frameAdd.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,34 +47,33 @@ public class AddType extends MainUI{
 	 * @param str1 
 	 */
 	private void initialize(String str1) {
-		
-		frame = new JFrame();
-		
-		frame.setBounds(100, 100, 175, 220);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frameAdd = new JFrame();
+		frameAdd.setBounds(100, 100, 175, 220);
+		frameAdd.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frameAdd.getContentPane().setLayout(null);
+		frameAdd.setLocationRelativeTo(null);
 		
 		JTextArea TypeArea = new JTextArea();
 		TypeArea.setBounds(6, 6, 102, 146);
 		TypeArea.setText(str1);
 		//TypeArea.scrollRectToVisible(null);
-		frame.getContentPane().add(TypeArea);
+		frameAdd.getContentPane().add(TypeArea);
 		
 		JScrollPane scrollPane = new JScrollPane(TypeArea);
 		scrollPane.setBounds(6, 6, 146, 163);
-		frame.getContentPane().add(scrollPane);
-		frame.setVisible(true);
+		frameAdd.getContentPane().add(scrollPane);
+		frameAdd.setVisible(true);
 		
 		//frame.addWindowListener(new WindowHandler(frame,TypeArea));
 		
 		//frame.addWindowListener(new WindowHandler());
-		frame.addWindowListener(new WindowAdapter() {
+		frameAdd.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.out.println("1111");
 				try {
 					WritetoDoc(TypeArea.getText());
 					MainUI.UpdateTypeBox(TypeArea.getText());
+				
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

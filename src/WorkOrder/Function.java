@@ -8,6 +8,30 @@ import javax.swing.*;
 interface method {
 	public static final int ADD_FUNCTION = 1;
 	public static final int CHECK_FUNCTION = 2;
+	
+	public default String getFilePath(){
+		StringBuffer path = new StringBuffer();
+		String out = null;
+		//System.out.println(getClass().getResource("").toString());
+		if(System.getProperty("os.name").equals("Mac OS X")){
+			path.append(getClass().getResource("").toString());
+			path.delete(0,5);
+			path.delete(path.length()-14, path.length());
+			path.append("ref/Type.txt");
+			out = path.toString();
+		}else{
+			path.append(getClass().getResource("").toString());
+			path.delete(0,8);
+			System.out.println(path.toString());
+			path.delete(path.length()-14, path.length());
+			System.out.println(path.toString());
+			path.append("ref/Type.txt");
+			System.out.println(path.toString());
+			out = path.toString();
+		}
+		
+		return out;
+	}
 }
 
 public class Function implements method{
