@@ -6,5 +6,4 @@ Jackey
 iPalur
 DN
 111
-222
 

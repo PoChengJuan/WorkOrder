@@ -9,9 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -105,7 +108,7 @@ public class MainUI implements method{
 		String data = "";
 		try {
 			int x = 0;
-			
+			CheckFile(getFilePath());
 			FileReader fr = new FileReader(getFilePath());
 			BufferedReader br = new BufferedReader(fr);
 			
@@ -224,6 +227,44 @@ public class MainUI implements method{
 	}
 	
 	
+
+	private void CheckFile(String filePath) throws IOException {
+		// TODO Auto-generated method stub
+		File f = new File(filePath);
+		System.out.println(f.toString());
+		if(!f.exists()) {
+			boolean result = f.getParentFile().mkdirs();
+			if(!result) {
+				System.out.println("建立失败");
+			}
+			FileOutputStream fop = new FileOutputStream(f);
+	        // 构建FileOutputStream对象,文件不存在会自动新建
+	 
+	        OutputStreamWriter writer = new OutputStreamWriter(fop, "UTF-8");
+	        // 构建OutputStreamWriter对象,参数可以指定编码,默认为操作系统默认编码,windows上是gbk
+	 
+	        writer.append("[Creator]");
+	        writer.append("\r\n");
+	        writer.append("Jones");
+	        writer.append("\r\n");
+	        writer.append("Jackey");
+	        writer.append("\r\n");
+	        writer.append("\r\n");
+	        writer.append("[Type]");
+	        writer.append("\r\n");
+	        writer.append("iPalur");
+	        writer.append("\r\n");
+	        writer.append("DN");
+	        writer.append("\r\n");
+	        // 写入到缓冲区
+
+	        writer.close();
+	        // 关闭写入流,同时会把缓冲区内容写入文件,所以上面的注释掉
+	 
+	        fop.close();
+	        // 关闭输出流,释放系统资源
+		}
+	}
 
 	public static void UpdateTypeBox(String str) {
 		// TODO Auto-generated method stub
