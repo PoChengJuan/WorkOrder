@@ -1,5 +1,7 @@
 package WorkOrder;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,24 +11,28 @@ interface method {
 	public static final int ADD_FUNCTION = 1;
 	public static final int CHECK_FUNCTION = 2;
 	
-	public default String getFilePath(){
+	public default String getFilePath() throws IOException{
 		StringBuffer path = new StringBuffer();
 		String out = null;
+		File f = new File(".");
+		System.out.println(f.getCanonicalPath());
 		//System.out.println(getClass().getResource("").toString());
 		if(System.getProperty("os.name").equals("Mac OS X")){
-			path.append(getClass().getResource("").toString());
-			path.delete(0,5);
-			path.delete(path.length()-14, path.length());
-			path.append("ref/Type.txt");
+			//path.append(getClass().getResource("").toString());
+			//path.delete(0,5);
+			//path.delete(path.length()-14, path.length());
+			path.append(f.getCanonicalPath());
+			path.append("/ref/Type.txt");
 			out = path.toString();
 		}else{
-			path.append(getClass().getResource("").toString());
-			path.delete(0,8);
-			System.out.println(path.toString());
-			path.delete(path.length()-14, path.length());
-			System.out.println(path.toString());
-			path.append("ref/Type.txt");
-			System.out.println(path.toString());
+			//path.append(getClass().getResource("").toString());
+			//path.delete(0,8);
+			//System.out.println(path.toString());
+			//path.delete(path.length()-14, path.length());
+			//System.out.println(path.toString());
+			path.append(f.getCanonicalPath());
+			path.append("/ref/Type.txt");
+			//System.out.println(path.toString());
 			out = path.toString();
 		}
 		
