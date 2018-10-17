@@ -67,19 +67,12 @@ public class MainUI implements method{
 	private void initialize() throws IOException {
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 394, 253);
+		frame.setBounds(100, 100, 385, 244);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setIconImage(new ImageIcon(getFilePath(LogoPath)).getImage());
-		
+		frame.setResizable(false);
 		System.out.println(System.getProperty("os.name").toString());
-		
-		JLabel VersionLabel = new JLabel("New label");
-		VersionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 9));
-		VersionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		VersionLabel.setBounds(217, 198, 157, 16);
-		VersionLabel.setText("Version : " + Version);
-		frame.getContentPane().add(VersionLabel);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 376, 208);
@@ -202,6 +195,13 @@ public class MainUI implements method{
 		btnAdd.setBorder(null);
 		panel.add(btnAdd);
 		
+		JLabel VersionLabel = new JLabel("New label");
+		VersionLabel.setBounds(205, 192, 157, 16);
+		panel.add(VersionLabel);
+		VersionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 9));
+		VersionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		VersionLabel.setText("Version : " + Version);
+		
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Date date = new Date( );
@@ -239,13 +239,13 @@ public class MainUI implements method{
 		if(!f.exists()) {
 			boolean result = f.getParentFile().mkdirs();
 			if(!result) {
-				System.out.println("建立失败");
+				System.out.println("撱箇�仃韐�");
 			}
 			FileOutputStream fop = new FileOutputStream(f);
-	        // 构建FileOutputStream对象,文件不存在会自动新建
+	        // ��遣FileOutputStream撖寡情,��辣銝�隡��撱�
 	 
 	        OutputStreamWriter writer = new OutputStreamWriter(fop, "UTF-8");
-	        // 构建OutputStreamWriter对象,参数可以指定编码,默认为操作系统默认编码,windows上是gbk
+	        // ��遣OutputStreamWriter撖寡情,���隞交�����,暺恕銝箸��頂蝏�恕蝻��,windows銝gbk
 	 
 	        writer.append("[Creator]");
 	        writer.append("\r\n");
@@ -260,13 +260,13 @@ public class MainUI implements method{
 	        writer.append("\r\n");
 	        writer.append("DN");
 	        writer.append("\r\n");
-	        // 写入到缓冲区
+	        // ���蝻�
 
 	        writer.close();
-	        // 关闭写入流,同时会把缓冲区内容写入文件,所以上面的注释掉
+	        // ����瘚�,��隡�����捆����辣,��隞乩���釣����
 	 
 	        fop.close();
-	        // 关闭输出流,释放系统资源
+	        // ��颲瘚�,��蝟餌����
 		}
 	}
 

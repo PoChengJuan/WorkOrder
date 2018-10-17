@@ -48,10 +48,11 @@ public class AddType implements method {
 	 */
 	private void initialize(String str1) {
 		frameAdd = new JFrame();
-		frameAdd.setBounds(100, 100, 175, 220);
+		frameAdd.setBounds(100, 100, 164, 208);
 		frameAdd.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frameAdd.getContentPane().setLayout(null);
 		frameAdd.setLocationRelativeTo(null);
+		frameAdd.setResizable(false);
 		
 		JTextArea TypeArea = new JTextArea();
 		TypeArea.setBounds(6, 6, 102, 146);
