@@ -83,7 +83,7 @@ public class AddType implements method {
 	}
 
 	public String WritetoDoc(String str) throws IOException {
-		FileReader fr = new FileReader(getFilePath());
+		FileReader fr = new FileReader(getFilePath(TypePath));
 		
 		BufferedReader br = new BufferedReader(fr);
 		String data = "";
@@ -97,7 +97,7 @@ public class AddType implements method {
 			}
 			
 		}
-		FileWriter fw = new FileWriter(getFilePath());
+		FileWriter fw = new FileWriter(getFilePath(TypePath));
 		fw.write(newData);
 		fr.close();
 		br.close();

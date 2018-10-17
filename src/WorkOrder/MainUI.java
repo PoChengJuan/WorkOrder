@@ -42,6 +42,8 @@ public class MainUI implements method{
 					new MainUI();
 					frame.setLocationRelativeTo(null);
 					frame.setTitle("iPQRS Machine Register");
+					
+					//System.out.println(getFilePath(LogoPath));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,21 +54,23 @@ public class MainUI implements method{
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public MainUI() {
+	public MainUI() throws IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 394, 253);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+		frame.setIconImage(new ImageIcon(getFilePath(LogoPath)).getImage());
 		
 		System.out.println(System.getProperty("os.name").toString());
 		
@@ -108,8 +112,8 @@ public class MainUI implements method{
 		String data = "";
 		try {
 			int x = 0;
-			CheckFile(getFilePath());
-			FileReader fr = new FileReader(getFilePath());
+			CheckFile(getFilePath(TypePath));
+			FileReader fr = new FileReader(getFilePath(TypePath));
 			BufferedReader br = new BufferedReader(fr);
 			
 			while((data = br.readLine())!=null)

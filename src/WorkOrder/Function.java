@@ -10,29 +10,21 @@ import javax.swing.*;
 interface method {
 	public static final int ADD_FUNCTION = 1;
 	public static final int CHECK_FUNCTION = 2;
-	
-	public default String getFilePath() throws IOException{
+	public static final int TypePath = 1;
+	public static final int LogoPath = 2;
+	public default String getFilePath(int path_select) throws IOException{
 		StringBuffer path = new StringBuffer();
 		String out = null;
 		File f = new File(".");
-		System.out.println(f.getCanonicalPath());
-		//System.out.println(getClass().getResource("").toString());
-		if(System.getProperty("os.name").equals("Mac OS X")){
-			//path.append(getClass().getResource("").toString());
-			//path.delete(0,5);
-			//path.delete(path.length()-14, path.length());
+		//System.out.println(f.getCanonicalPath());
+		
+		if(path_select == TypePath) {
 			path.append(f.getCanonicalPath());
 			path.append("/ref/Type.txt");
 			out = path.toString();
-		}else{
-			//path.append(getClass().getResource("").toString());
-			//path.delete(0,8);
-			//System.out.println(path.toString());
-			//path.delete(path.length()-14, path.length());
-			//System.out.println(path.toString());
+		}else if(path_select == LogoPath) {
 			path.append(f.getCanonicalPath());
-			path.append("/ref/Type.txt");
-			//System.out.println(path.toString());
+			path.append("/ref/logo.png");
 			out = path.toString();
 		}
 		
@@ -49,12 +41,9 @@ public class Function implements method{
 	public Function(MachineData data)
 	{
 		try{
-			//JFrame MessageBox = null;
-			//JOptionPane.showMessageDialog(MessageBox, "Please check the internet", "Error", JOptionPane.ERROR_MESSAGE);
 			if( data.Method == ADD_FUNCTION )
 			{
 				db.connect();
-				//System.out.print(db.getdata(NewTypeStr,NewNumStr));
 				if(data.Num.isEmpty())
 				{
 					//MessageBox.
